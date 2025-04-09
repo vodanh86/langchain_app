@@ -8,7 +8,7 @@ def display_sidebar():
 
     # Sidebar: Upload Document
     st.sidebar.header("Upload Document")
-    uploaded_file = st.sidebar.file_uploader("Choose a file", type=["pdf", "docx", "html"])
+    uploaded_file = st.sidebar.file_uploader("Choose a file", type=["pdf", "docx", "html", "txt", "csv", "json", "xlsx", "xlsx", "pptx"])
     if uploaded_file is not None:
         if st.sidebar.button("Upload"):
             with st.spinner("Uploading..."):
