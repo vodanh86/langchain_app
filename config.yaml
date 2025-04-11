@@ -1,0 +1,28 @@
+cookie:
+  expiry_days: 30
+  key: abc123 # To be filled with any string
+  name: # To be filled with any string
+credentials:
+  usernames:
+    cuongdm2:
+      email: jsmith@gmail.com
+      failed_login_attempts: 0 # Will be managed automatically
+      first_name: Cuong
+      last_name: Duong
+      logged_in: False # Will be managed automatically
+      password: $2b$12$dtTKq9U0B4.NFDMRRDjuRedPL/XQQHR3XYUmeyzdv1OS/tiY0AYDK # Will be hashed automatically
+      roles: # Optional
+      - admin
+      - editor
+      - viewer
+    muoilv:
+      email: muoilv@abbank.vn
+      failed_login_attempts: 0 # Will be managed automatically
+      first_name: Muoi
+      last_name: Le
+      logged_in: False # Will be managed automatically
+      password: $2b$12$qIuBmeKMTBnS/8.rytObC.TNWKnHpQOSV5vf.IxFSsr77upRgYtE  # Will be hashed automatically
+      roles: # Optional
+      - admin
+      - editor
+      - viewer

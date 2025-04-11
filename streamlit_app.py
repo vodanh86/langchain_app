@@ -1,18 +1,45 @@
 import streamlit as st
 from sidebar import display_sidebar
 from chat_interface import display_chat_interface
+import streamlit_authenticator as stauth
+import yaml
+from yaml.loader import SafeLoader
 
-st.title("Langchain RAG Chatbot")
+with open('config.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
 
-# Initialize session state variables
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+#hashed_passwords = stauth.Hasher.hash_passwords(config['credentials'])
+#print(hashed_passwords)
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days']
+)
 
-if "session_id" not in st.session_state:
-    st.session_state.session_id = None
+try:
+    authenticator.login()
+except Exception as e:
+    st.error(e)
 
-# Display the sidebar
-display_sidebar()
+if st.session_state.get('authentication_status'):
+    authenticator.logout()
+    st.title("Langchain RAG Chatbot")
 
-# Display the chat interface
-display_chat_interface()
+    # Initialize session state variables
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    if "session_id" not in st.session_state:
+        st.session_state.session_id = None
+
+    # Display the sidebar
+    display_sidebar()
+
+    # Display the chat interface
+    display_chat_interface()
+
+elif st.session_state.get('authentication_status') is False:
+    st.error('Username/password is incorrect')
+elif st.session_state.get('authentication_status') is None:
+    st.warning('Please enter your username and password')

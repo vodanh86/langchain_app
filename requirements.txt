@@ -1,2 +1,3 @@
 streamlit
 dotenv
+streamlit-authenticator
