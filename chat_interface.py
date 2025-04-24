@@ -24,9 +24,7 @@ def display_chat_interface():
                     
                     with st.expander("Details"):
                         st.subheader("Generated Answer")
-                        st.code(response['answer'])
-                        st.subheader("Model Used")
-                        st.code(response['model'])
+                        st.code(response['contexts'], height=200, wrap_lines=True)
                         st.subheader("Session ID")
                         st.code(response['session_id'])
             else:
