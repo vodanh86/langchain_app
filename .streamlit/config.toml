@@ -1,2 +1,2 @@
 [server]
-maxUploadSize = 10  # đơn vị: MB
+maxUploadSize = 20  # đơn vị: MB
