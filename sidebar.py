@@ -42,18 +42,18 @@ def display_sidebar():
     if documents:
         for doc in documents:
             st.sidebar.text(f"{doc['filename']} (ID: {doc['id']}, Uploaded: {doc['upload_timestamp']})")
-
-        # Delete Document
-        selected_file_id = st.sidebar.selectbox(
-            "Select a document to delete",
-            options=[doc['id'] for doc in documents],
-            format_func=lambda x: next(doc['filename'] for doc in documents if doc['id'] == x)
-        )
-        if st.sidebar.button("Delete Selected Document"):
-            with st.spinner("Deleting..."):
-                delete_response = delete_document(selected_file_id)
-                if delete_response:
-                    st.sidebar.success(f"Document with ID {selected_file_id} deleted successfully.")
-                    st.session_state.documents = list_documents()  # Refresh the list after deletion
-                else:
-                    st.sidebar.error(f"Failed to delete document with ID {selected_file_id}.")
+        if (st.session_state.get("role") == "admin"):
+            # Delete Document
+            selected_file_id = st.sidebar.selectbox(
+                "Select a document to delete",
+                options=[doc['id'] for doc in documents],
+                format_func=lambda x: next(doc['filename'] for doc in documents if doc['id'] == x)
+            )
+            if st.sidebar.button("Delete Selected Document"):
+                with st.spinner("Deleting..."):
+                    delete_response = delete_document(selected_file_id)
+                    if delete_response:
+                        st.sidebar.success(f"Document with ID {selected_file_id} deleted successfully.")
+                        st.session_state.documents = list_documents()  # Refresh the list after deletion
+                    else:
+                        st.sidebar.error(f"Failed to delete document with ID {selected_file_id}.")
