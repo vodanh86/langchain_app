@@ -1,28 +1,25 @@
 cookie:
   expiry_days: 30
-  key: abc123 # To be filled with any string
-  name: # To be filled with any string
+  key:  key # To be filled with any string
+  name: name # To be filled with any string
 credentials:
   usernames:
-    cuongdm2:
-      email: jsmith@gmail.com
+    langchainadmin:
+      email: admin@abbank.vn
       failed_login_attempts: 0 # Will be managed automatically
-      first_name: Cuong
-      last_name: Duong
+      first_name: Admin
+      last_name: Admin
       logged_in: False # Will be managed automatically
       password: $2b$12$dtTKq9U0B4.NFDMRRDjuRedPL/XQQHR3XYUmeyzdv1OS/tiY0AYDK # Will be hashed automatically
       roles: # Optional
       - admin
-      - editor
-      - viewer
-    muoilv:
-      email: muoilv@abbank.vn
+    langchainuser:
+      email: user@abbank.vn
       failed_login_attempts: 0 # Will be managed automatically
-      first_name: Muoi
-      last_name: Le
+      first_name: User
+      last_name: User
       logged_in: False # Will be managed automatically
-      password: $2b$12$qIuBmeKMTBnS/8.rytObC.TNWKnHpQOSV5vf.IxFSsr77upRgYtE  # Will be hashed automatically
+      password: $2b$12$dtTKq9U0B4.NFDMRRDjuRedPL/XQQHR3XYUmeyzdv1OS/tiY0AYDK  # Will be hashed automatically
       roles: # Optional
-      - admin
       - editor
       - viewer
