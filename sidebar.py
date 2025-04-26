@@ -42,7 +42,7 @@ def display_sidebar():
     if documents:
         for doc in documents:
             st.sidebar.text(f"{doc['filename']} (ID: {doc['id']}, Uploaded: {doc['upload_timestamp']})")
-        if (st.session_state.get("role") == "admin"):
+        if (st.session_state.get("roles") == ["admin"]):
             # Delete Document
             selected_file_id = st.sidebar.selectbox(
                 "Select a document to delete",
