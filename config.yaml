@@ -4,7 +4,7 @@ cookie:
   name: name # To be filled with any string
 credentials:
   usernames:
-    langchainadmin:
+    admin.aichatbot:
       email: admin@abbank.vn
       failed_login_attempts: 0 # Will be managed automatically
       first_name: Admin
@@ -13,7 +13,7 @@ credentials:
       password: $2b$12$dtTKq9U0B4.NFDMRRDjuRedPL/XQQHR3XYUmeyzdv1OS/tiY0AYDK # Will be hashed automatically
       roles: # Optional
       - admin
-    langchainuser:
+    ops.aichatbot:
       email: user@abbank.vn
       failed_login_attempts: 0 # Will be managed automatically
       first_name: User
