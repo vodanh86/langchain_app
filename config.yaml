@@ -1,5 +1,5 @@
 cookie:
-  expiry_days: 30
+  expiry_days: 1
   key:  key # To be filled with any string
   name: name # To be filled with any string
 credentials:
