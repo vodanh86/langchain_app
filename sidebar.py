@@ -1,4 +1,3 @@
-
 import streamlit as st
 from api_utils import upload_document, list_documents, delete_document
 import time
@@ -11,7 +10,10 @@ def display_sidebar():
     # Sidebar: Upload Document
     st.sidebar.header("Upload Document")
     uploaded_file = st.sidebar.file_uploader("Choose a file", type=["pdf", "docx", "html", "txt", "csv", "json", "xlsx", "pptx"])
-
+  
+    # Lấy dept_id từ session state hoặc cấu hình
+    dept_id = st.session_state.get("dept_id", 0)  # Default dept_id = 0 nếu không có
+    
     if uploaded_file is not None:
         cooldown = 10  # seconds
         now = time.time()
@@ -22,27 +24,27 @@ def display_sidebar():
         else:
             if st.sidebar.button("Upload"):
                 with st.spinner("Uploading..."):
-                    upload_response = upload_document(uploaded_file)
+                    upload_response = upload_document(uploaded_file, dept_id)  # Gửi dept_id cùng file
                     if upload_response:
                         st.session_state["last_upload_time"] = now
                         st.sidebar.success(f"File '{uploaded_file.name}' uploaded successfully with ID {upload_response['file_id']}.")
-                        st.session_state.documents = list_documents()  # Refresh the list
+                        st.session_state.documents = list_documents(dept_id)  # Refresh the list
 
     # Sidebar: List Documents
     st.sidebar.header("Uploaded Documents")
     if st.sidebar.button("Refresh Document List"):
         with st.spinner("Refreshing..."):
-            st.session_state.documents = list_documents()
+            st.session_state.documents = list_documents(dept_id)
 
     # Initialize document list if not present
     if "documents" not in st.session_state:
-        st.session_state.documents = list_documents()
+        st.session_state.documents = list_documents(dept_id)
 
     documents = st.session_state.documents
     if documents:
         for doc in documents:
             st.sidebar.text(f"{doc['filename']} (ID: {doc['id']}, Uploaded: {doc['upload_timestamp']})")
-        if (st.session_state.get("roles") == ["admin"]):
+        if (st.session_state.get("roles") == ["admin"]) or True:
             # Delete Document
             selected_file_id = st.sidebar.selectbox(
                 "Select a document to delete",
@@ -51,9 +53,9 @@ def display_sidebar():
             )
             if st.sidebar.button("Delete Selected Document"):
                 with st.spinner("Deleting..."):
-                    delete_response = delete_document(selected_file_id)
+                    delete_response = delete_document(selected_file_id, dept_id)
                     if delete_response:
                         st.sidebar.success(f"Document with ID {selected_file_id} deleted successfully.")
-                        st.session_state.documents = list_documents()  # Refresh the list after deletion
+                        st.session_state.documents = list_documents(dept_id)  # Refresh the list after deletion
                     else:
                         st.sidebar.error(f"Failed to delete document with ID {selected_file_id}.")

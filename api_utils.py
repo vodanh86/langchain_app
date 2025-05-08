@@ -32,11 +32,13 @@ def get_api_response(question, session_id, model):
         st.error(f"An error occurred: {str(e)}")
         return None
 
-def upload_document(file):
-    print("Uploading file...")
+def upload_document(file, dept_id):
+    print("Uploading file... " + str(dept_id))
     try:
         files = {"file": (file.name, file, file.type)}
-        response = requests.post(f"{API_HOST}/upload-doc", files=files)
+        data = {"dept_id": dept_id}  # Gửi dept_id cùng với file
+
+        response = requests.post(f"{API_HOST}/upload-doc", files=files, data=data)
         if response.status_code == 200:
             return response.json()
         else:
@@ -46,9 +48,10 @@ def upload_document(file):
         st.error(f"An error occurred while uploading the file: {str(e)}")
         return None
 
-def list_documents():
+def list_documents(dept_id):
     try:
-        response = requests.get(f"{API_HOST}/list-docs")
+        params = {"dept_id": dept_id}
+        response = requests.get(f"{API_HOST}/list-docs", params=params)
         if response.status_code == 200:
             return response.json()
         else:
@@ -58,12 +61,12 @@ def list_documents():
         st.error(f"An error occurred while fetching the document list: {str(e)}")
         return []
 
-def delete_document(file_id):
+def delete_document(file_id, dept_id):
     headers = {
         'accept': 'application/json',
         'Content-Type': 'application/json'
     }
-    data = {"file_id": file_id}
+    data = {"file_id": file_id, "dept_id": dept_id}
 
     try:
         response = requests.post(f"{API_HOST}/delete-doc", headers=headers, json=data)

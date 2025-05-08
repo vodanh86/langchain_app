@@ -23,6 +23,9 @@ except Exception as e:
     st.error(e)
 
 if st.session_state.get('authentication_status'):
+    user_info = config['credentials']['usernames'].get(st.session_state.username, {})
+    st.session_state['dept_id'] = user_info.get('dept_id', 0)  # Default dept_id = 0 nếu không có
+  
     authenticator.logout()
     st.title("Langchain RAG Chatbot")
 
