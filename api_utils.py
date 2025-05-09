@@ -32,11 +32,15 @@ def get_api_response(question, session_id, model):
         st.error(f"An error occurred: {str(e)}")
         return None
 
-def upload_document(file, dept_id):
-    print("Uploading file... " + str(dept_id))
+def upload_document(file, dept_id, upload_link, effective_date):
+    print(f"Uploading file... Dept ID: {dept_id}, Upload Link: {upload_link}, Effective Date: {effective_date}")
     try:
         files = {"file": (file.name, file, file.type)}
-        data = {"dept_id": dept_id}  # Gửi dept_id cùng với file
+        data = {
+            "dept_id": dept_id,
+            "upload_link": upload_link,
+            "effective_date": effective_date
+        }
 
         response = requests.post(f"{API_HOST}/upload-doc", files=files, data=data)
         if response.status_code == 200:

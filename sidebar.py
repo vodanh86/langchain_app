@@ -14,6 +14,11 @@ def display_sidebar():
     # Lấy dept_id từ session state hoặc cấu hình
     dept_id = st.session_state.get("dept_id", 0)  # Default dept_id = 0 nếu không có
     
+
+    # Thêm các trường nhập liệu cho upload_link và effective_date
+    upload_link = st.sidebar.text_input("Link to File", placeholder="Enter the link")
+    effective_date = st.sidebar.date_input("Effective Date")
+
     if uploaded_file is not None:
         cooldown = 10  # seconds
         now = time.time()
@@ -24,7 +29,7 @@ def display_sidebar():
         else:
             if st.sidebar.button("Upload"):
                 with st.spinner("Uploading..."):
-                    upload_response = upload_document(uploaded_file, dept_id)  # Gửi dept_id cùng file
+                    upload_response = upload_document(uploaded_file, dept_id, upload_link, effective_date)
                     if upload_response:
                         st.session_state["last_upload_time"] = now
                         st.sidebar.success(f"File '{uploaded_file.name}' uploaded successfully with ID {upload_response['file_id']}.")
@@ -43,7 +48,9 @@ def display_sidebar():
     documents = st.session_state.documents
     if documents:
         for doc in documents:
-            st.sidebar.text(f"{doc['filename']} (ID: {doc['id']}, Uploaded: {doc['upload_timestamp']})")
+            st.sidebar.markdown(
+                f"- **{doc['filename']}** (ID: {doc['id']}) - [Link]({doc.get('upload_link', 'N/A')}) | Effective: {doc.get('effective_date', 'N/A')}"
+            )
         if (st.session_state.get("roles") == ["admin"]) or True:
             # Delete Document
             selected_file_id = st.sidebar.selectbox(
