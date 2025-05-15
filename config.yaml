@@ -25,3 +25,25 @@ credentials:
       - editor
       - viewer
       dept_id: 2 # Thêm dep_id cho ops
+    ops.hr:
+      email: user@abbank.vn
+      failed_login_attempts: 0 # Will be managed automatically
+      first_name: User
+      last_name: User
+      logged_in: False # Will be managed automatically
+      password: $2b$12$dtTKq9U0B4.NFDMRRDjuRedPL/XQQHR3XYUmeyzdv1OS/tiY0AYDK  # Will be hashed automatically
+      roles: # Optional
+      - editor
+      - viewer
+      dept_id: 2 # Thêm dep_id cho ops
+    ops.pc:
+      email: user@abbank.vn
+      failed_login_attempts: 0 # Will be managed automatically
+      first_name: User
+      last_name: User
+      logged_in: False # Will be managed automatically
+      password: $2b$12$dtTKq9U0B4.NFDMRRDjuRedPL/XQQHR3XYUmeyzdv1OS/tiY0AYDK  # Will be hashed automatically
+      roles: # Optional
+      - editor
+      - viewer
+      dept_id: 2 # Thêm dep_id cho ops
