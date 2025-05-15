@@ -1,4 +1,5 @@
 import streamlit as st
+import json
 from api_utils import get_api_response
 
 def display_chat_interface():
@@ -24,7 +25,11 @@ def display_chat_interface():
                     
                     with st.expander("Details"):
                         st.subheader("Generated Answer")
-                        st.code(response['contexts'], height=200, wrap_lines=True)
+                        st.subheader("Contexts")
+                        contexts = json.loads(response['contexts']) if isinstance(response['contexts'], str) else response['contexts']
+                        for context in contexts:
+                            st.json(context)
+                        
                         st.subheader("Session ID")
                         st.code(response['session_id'])
             else:
